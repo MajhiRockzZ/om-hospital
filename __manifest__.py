@@ -10,7 +10,9 @@
     'website': 'https://www.majhirockzz.me/',
     'depends': [],
     'demo': [],
-    'data': [],
+    'data': [
+        'patient.xml'
+    ],
     'installable': True,
     'application': True,
     'auto_install': False,
