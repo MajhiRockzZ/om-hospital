@@ -15,6 +15,7 @@
     'demo': [],
     'data': [
         'security/ir.model.access.csv',
+        'data/sequence.xml',
         'patient.xml'
     ],
     'installable': True,
