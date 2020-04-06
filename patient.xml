@@ -33,9 +33,15 @@
                         <field name="image"/>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"/>
+                </div>
             </form>
         </field>
     </record>
+
 
     <record id="action_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>

@@ -8,7 +8,10 @@
     'author': 'Sumesh Majhi',
     'maintainer': 'MajhiRockzZ',
     'website': 'https://www.majhirockzz.me/',
-    'depends': [],
+    'depends': [
+        'base',
+        'mail',
+    ],
     'demo': [],
     'data': [
         'security/ir.model.access.csv',
