@@ -3,7 +3,7 @@
     'version': '12.0.1.0.0',
     'category': 'Extra Tools',
     'summary': 'Module for managing Hospitals',
-    'sequence': '10',
+    'sequence': '1',
     'license': 'AGPL-3',
     'author': 'Sumesh Majhi',
     'maintainer': 'MajhiRockzZ',
@@ -11,6 +11,8 @@
     'depends': [
         'base',
         'mail',
+        'sale'
+
     ],
     'demo': [],
     'data': [
