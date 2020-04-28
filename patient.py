@@ -15,17 +15,23 @@ class HospitalPatient(models.Model):
     _description = 'Patient Record'
     _rec_name = 'patient_name'
 
+    name = fields.Char(string="Test")
+    # SEQUENCE IN ODOO
+    name_seq = fields.Char(string='Patient ID', required=True, copy=False, readonly=True, index=True,
+                           default=lambda self: _('New'))
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ], default='male', string='Gender')
     patient_name = fields.Char(string='Name', required=True)
     patient_age = fields.Integer('Age')
-    notes = fields.Text(string="Notes")
+    notes = fields.Text(string="Registration Note")
     image = fields.Binary(string="Image")
-    # name = fields.Char(string="Test")
-    name_seq = fields.Char(string='Patient Code', required=True, copy=False, readonly=True, index=True,
-                           default=lambda self: _('New'))
 
     @api.model
     def create(self, vals):
         if vals.get('name_seq', _('New')) == _('New'):
-            vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patient.sequence') or _('New')
+            vals['name_seq'] = self.env['ir.sequence'].next_by_code(
+                'hospital.patient.sequence') or _('New')
         result = super(HospitalPatient, self).create(vals)
         return result

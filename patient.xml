@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- VIEW INHERITANCE -->
     <record id="sale_order_inherit" model="ir.ui.view">
         <field name="name">sale.order.inherit</field>
         <field name="model">sale.order</field>
@@ -17,9 +18,10 @@
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
             <tree string="patient_tree">
-                <field name="name_seq"/>
                 <field name="patient_name"/>
+                <field name="name_seq"/>
                 <field name="patient_age"/>
+                <field name="gender" />
                 <field name="notes"/>
             </tree>
         </field>
@@ -40,9 +42,11 @@
                     <group>
                         <group>
                             <field name="patient_name"/>
+                            <field name="name" />
                         </group>
                         <group>
                             <field name="patient_age"/>
+                            <field name="gender" />
                         </group>
                     </group>
                     <group>
@@ -50,6 +54,7 @@
                         <field name="image"/>
                     </group>
                 </sheet>
+                <!-- CHATTER BOX -->
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="activity_ids" widget="mail_activity"/>
@@ -59,7 +64,30 @@
         </field>
     </record>
 
+    <!-- search view for patient model -->
+    <record id="hospital_patient_search" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search string="Search Patients">
+                <!-- SEARCH -->
+                <field name="name" filter_domain="['|', ('patient_name', 'ilike', self), ('name_seq', 'ilike', self)]"/>
+                <field name="name_seq"/>
+                <field name="patient_name"/>
+                <separator />
+                <!-- FILTER -->
+                <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                <!-- GROUP BY -->
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
+
+    <!-- menu action for patient model -->
     <record id="action_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>
         <field name="type">ir.actions.act_window</field>
