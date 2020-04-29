@@ -27,8 +27,9 @@ class HospitalPatient(models.Model):
         ('major', 'Major'),
         ('minor', 'Minor'),
     ], string='Age Group', compute='set_age_group')
-    patient_name = fields.Char(string='Name', required=True)
-    patient_age = fields.Integer('Age')
+    patient_name = fields.Char(
+        string='Name', required=True, track_visibility="always")  # TRACK VALUE CHANGE
+    patient_age = fields.Integer('Age', track_visibility="always")
     notes = fields.Text(string="Registration Note")
     image = fields.Binary(string="Image")
 
