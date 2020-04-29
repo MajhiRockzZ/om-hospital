@@ -23,6 +23,10 @@ class HospitalPatient(models.Model):
         ('male', 'Male'),
         ('female', 'Female'),
     ], default='male', string='Gender')
+    age_group = fields.Selection([
+        ('major', 'Major'),
+        ('minor', 'Minor'),
+    ], string='Age Group', compute='set_age_group')
     patient_name = fields.Char(string='Name', required=True)
     patient_age = fields.Integer('Age')
     notes = fields.Text(string="Registration Note")
@@ -35,3 +39,12 @@ class HospitalPatient(models.Model):
                 'hospital.patient.sequence') or _('New')
         result = super(HospitalPatient, self).create(vals)
         return result
+
+    @api.depends('patient_age')
+    def set_age_group(self):
+        for rec in self:  # singleton error need a for loop
+            if rec.patient_age:
+                if rec.patient_age < 18:
+                    rec.age_group = 'minor'
+                else:
+                    rec.age_group = 'major'
