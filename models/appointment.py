@@ -27,6 +27,14 @@ class HospitalAppointment(models.Model):
     def _get_default_date(self):
         return date.today()
 
+    def action_confirm(self):
+        for rec in self:
+            rec.state = 'confirm'
+
+    def action_done(self):
+        for rec in self:
+            rec.state = 'done'
+
     name = fields.Char(string='Appointment ID', required=True, copy=False,
                        readonly=True, index=True, default=lambda self: _('New'))
     patient_id = fields.Many2one(
