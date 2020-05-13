@@ -33,6 +33,7 @@ class HospitalPatient(models.Model):
     patient_age = fields.Integer('Age', track_visibility="always")
     notes = fields.Text(string="Registration Note")
     image = fields.Binary(string="Image")
+    appointment_count = fields.Integer(string='Appointment', compute='get_appointment_count')
 
     @api.model
     def create(self, vals):
@@ -56,3 +57,18 @@ class HospitalPatient(models.Model):
         for rec in self:
             if rec.patient_age <= 5:
                 raise ValidationError(_('The age must be greater than 5'))
+    @api.multi
+    def open_patient_appointments(self):
+        return {
+            'name': _('Appointments'),
+            'domain': [('patient_id', '=', self.id)],
+            'view_type': 'form',
+            'res_model': 'hospital.appointment',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'type': 'ir.actions.act_window'
+        }
+    
+    def get_appointment_count(self):
+        count = self.env['hospital.appointment'].search_count([('patient_id', '=', self.id)])
+        self.appointment_count = count
