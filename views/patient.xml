@@ -18,8 +18,8 @@
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
             <tree string="patient_tree">
-                <field name="patient_name"/>
                 <field name="name_seq"/>
+                <field name="patient_name"/>
                 <field name="patient_age"/>
                 <field name="gender" />
                 <field name="notes"/>
