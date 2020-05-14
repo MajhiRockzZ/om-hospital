@@ -43,6 +43,16 @@
                             <field name="appointment_date" />
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Doctor Prescription">
+                            <group>
+                                <field name="doctor_notes" />
+                            </group>
+                        </page>
+                        <page string="Pharmacy">
+                            <field name="pharmacy_notes" />
+                        </page>
+                    </notebook>
                 </sheet>
 
                 <!-- CHATTER BOX -->
